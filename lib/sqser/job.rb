@@ -1,19 +1,5 @@
 module Sqser
   class Job
-    def queue_job
-      self.class.queue.send_message self.to_message
-    end
-
-    def run_job
-      self.run
-    end
-
-    def to_message
-      job_params = { :job_class => self.class.to_s,
-                     :job_args  => self.dump_args }
-      YAML.dump job_params
-    end
-
     def self.from_message(message)
       job_params = YAML.load message
 
@@ -25,8 +11,22 @@ module Sqser
       job
     end
 
+    def queue_job
+      self.class.queue.send_message self.to_message
+    end
+
+    def run_job
+      self.run
+    end
+
     def self.queue
       @@queue ||= AWS::SQS.new.queues[Sqser::Queue.queue_url]
+    end
+
+    def to_message
+      job_params = { :job_class => self.class.to_s,
+                     :job_args  => self.dump_args }
+      YAML.dump job_params
     end
 
     def dump_args
@@ -46,7 +46,7 @@ module Sqser
     private
 
     def self.initialize_job_class(job_class)
-      job_class.split("::").inject(Module) {|acc, val| acc.const_get(val)}
+      job_class.split("::").inject(Module) {|acc, val| acc.const_get val}
     end
   end
 end
