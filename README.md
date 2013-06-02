@@ -1,6 +1,6 @@
-# Sqser
+# SQSer
 
-Sqser is a library to perform basic job queuing to an Amazon SQS Queue.
+SQSer is a library to perform job queuing and execution via an Amazon SQS Queue.
 
 It provides a class which can be used as a parent to job classes which can be queued.
 
