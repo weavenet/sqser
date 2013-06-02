@@ -37,8 +37,8 @@ module Sqser
 
     def load_args(args)
       args.each do |a|
-        a.keys.each do |key|
-          self.instance_variable_set key, a[key]
+        a.each_pair do |key,value|
+          self.instance_variable_set key, value
         end
       end
     end
