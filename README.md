@@ -59,7 +59,7 @@ For full samples, check the examples folder.
 
 ## Attribution
 
-Thanks to @bradly and @vsomayagi for providing original inspiration.
+Thanks to @bradly and @vsomayaji for providing original inspiration.
 
 ## Contributing
 
