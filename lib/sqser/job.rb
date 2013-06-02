@@ -20,8 +20,7 @@ module Sqser
       job_class = job_params[:job_class]
       job_args  = job_params[:job_args]
 
-      klass = job_class.split("::").inject(Module) {|acc, val| acc.const_get(val)}
-      job = klass.new
+      job = initialize_job_class(job_class).new
       job.load_args job_args
       job
     end
@@ -38,8 +37,16 @@ module Sqser
 
     def load_args(args)
       args.each do |a|
-        a.keys.each {|key| self.instance_variable_set key, a[key]}
+        a.keys.each do |key|
+          self.instance_variable_set key, a[key]
+        end
       end
+    end
+
+    private
+
+    def self.initialize_job_class(job_class)
+      job_class.split("::").inject(Module) {|acc, val| acc.const_get(val)}
     end
   end
 end
