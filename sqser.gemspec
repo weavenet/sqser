@@ -8,9 +8,9 @@ Gem::Specification.new do |gem|
   gem.version       = Sqser::VERSION
   gem.authors       = ["Brett Weaver"]
   gem.email         = ["brett@weav.net"]
-  gem.description   = %q{Library to queue and execute async jobs via AWS SQS}
-  gem.summary       = %q{Library to queue and execute async jobs via AWS SQS}
-  gem.homepage      = ""
+  gem.description   = %q{Library to queue and execute jobs via AWS SQS}
+  gem.summary       = %q{Library to queue and execute jobs via AWS SQS}
+  gem.homepage      = "https://github.com/brettweavnet/sqser"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
@@ -20,5 +20,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rake"
   gem.add_development_dependency "rspec"
 
-  gem.add_runtime_dependency "aws-sdk"
+  gem.add_runtime_dependency "aws-sdk", "~> 1.11.0"
 end
