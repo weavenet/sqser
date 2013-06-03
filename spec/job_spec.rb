@@ -34,4 +34,9 @@ describe Sqser::Job do
     message_from_job.run_job.should == "testing 123 #{@value}"
   end
 
+  it "should not raise an error when instance variables exist which are not exposed via attr_accessor" do
+    @test_job.load_args [{ :@private_val => 'test123' }]
+    @test_job.instance_variables.include?(:@private_val).should be_true
+  end
+
 end
