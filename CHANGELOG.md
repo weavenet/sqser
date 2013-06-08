@@ -1,4 +1,4 @@
-## HEAD:
+## 0.2.0:
 
 * Added options to queue_job.
 * Added options to process.
