@@ -1,12 +1,10 @@
 # SQSer
 
-SQSer is a library to perform job queuing and execution via an Amazon SQS Queue.
+SQSer is a library to perform simple job queuing and execution via an Amazon SQS Queue.
 
 It provides a class which can be used as a parent to job classes which can be queued.
 
-The job class and instance variables are placed in a queue.  When the job is ran, the object is created and variables loaded from the message.
-
-It supports queueing multiple types of jobs to a single queue.
+The job class and instance variables are converted to YAML and queued.  When the job is processed, the object is created and variables loaded from the message.
 
 ## Installation
 
@@ -74,7 +72,7 @@ For example
 
 ## Examples
 
-Checkout the examples folder.
+Checkout the [examples](https://github.com/brettweavnet/sqser/tree/master/examples) for working code.
 
 ## Attribution
 
