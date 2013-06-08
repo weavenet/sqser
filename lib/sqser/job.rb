@@ -11,8 +11,8 @@ module Sqser
       job
     end
 
-    def queue_job
-      self.class.queue.send_message self.to_message
+    def queue_job(options={})
+      self.class.queue.send_message self.to_message, options
     end
 
     def run_job
@@ -20,7 +20,7 @@ module Sqser
     end
 
     def self.queue
-      @@queue ||= AWS::SQS.new.queues[Sqser::Queue.queue_url]
+      AWS::SQS.new.queues[Sqser::Queue.queue_url]
     end
 
     def to_message

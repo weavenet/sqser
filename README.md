@@ -47,12 +47,30 @@ Queue the job in SQS.
 
     job.queue_job
 
+You can pass the following options to queue_job.
+
+* delay_seconds - The number of seconds to delay the message.
+
+For example
+
+    job.queue_job :delay_seconds => 60
+
 ### Running Jobs
 
 To process jobs, create a new Sqser::Queue instance and call process.
 
     queue = Sqser::Queue.new
     queue.process
+
+You can pass the following options to process.
+
+* limit  The maximum number of messages to receive.
+* wait_time_seconds The number of seconds the service should wait for a response when requesting a new message.
+* visibility_timeout The duration (in seconds) that the received messages are hidden from subsequent retrieve requests.
+
+For example
+
+    queue.process :visibility_timeout => 180
 
 ## Examples
 

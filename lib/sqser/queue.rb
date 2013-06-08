@@ -8,8 +8,8 @@ module Sqser
       @@queue_url = url
     end
 
-    def process(limit=10)
-      Sqser::Job.queue.receive_message(:limit => limit) do |message|
+    def process(args={})
+      Sqser::Job.queue.receive_message(args) do |message|
         job = Sqser::Job.from_message message.body
         job.run_job
       end

@@ -4,7 +4,6 @@ require 'bundler/setup'
 require 'sqser'
 
 class TestJob < Sqser::Job
-
   attr_accessor :value
 
   protected

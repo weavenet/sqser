@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe Sqser::Job do
   before do
-    @queue_mock = mock 'queue'
+    @queue_mock = mock 'queue mock'
     @queue_url  = 'https://sqs.aws.com/id/name'
     @sqs_stub   = stub 'sqs', :queues => { @queue_url => @queue_mock }
+
     AWS::SQS.stub :new => @sqs_stub
     Sqser::Queue.queue_url = @queue_url
 
@@ -14,8 +15,14 @@ describe Sqser::Job do
   end
 
   it "should queue a job" do
-    @queue_mock.should_receive(:send_message).with @test_job.to_message
+    @queue_mock.should_receive(:send_message).with @test_job.to_message, {}
     @test_job.queue_job
+  end
+
+  it "should queue a job and set delay_secondst" do
+    @queue_mock.should_receive(:send_message).
+                with @test_job.to_message, :delay_seconds => 180
+    @test_job.queue_job :delay_seconds => 180
   end
 
   it "should call run on the parent class of a job pulled from the queue" do
@@ -24,8 +31,9 @@ describe Sqser::Job do
   end
 
   it "should create a message based off the given class" do
-    @test_job.to_message.should == YAML.dump({ :job_class => TestJob.to_s,
-                                               :job_args  => [{ :@value => 'test_value'}] })
+    message = YAML.dump({ :job_class => TestJob.to_s,
+                          :job_args  => [{ :@value => 'test_value'}] })
+    @test_job.to_message.should == message
   end
 
   it "should load the given class and args from a message" do
