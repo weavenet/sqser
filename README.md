@@ -86,9 +86,9 @@ Messages can then be retrieved from the queue and decrypted by specifying **:sec
 
     queue.process :secret => 'this-is-a-secret'
 
-Currently only a single message can be used per SQS Queue.
+Currently only a single secret can be used per SQS Queue.
 
-See [examples](https://github.com/brettweavnet/sqser/tree/master/examples) for encryption examples.
+See [examples](https://github.com/brettweavnet/sqser/tree/master/examples) for examples leveraging encryption.
 
 ## Examples
 
