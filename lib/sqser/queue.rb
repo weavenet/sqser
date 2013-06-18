@@ -20,7 +20,8 @@ module Sqser
     private
 
     def message_body(message)
-      @secret ? Encryptor.decrypt(message.body, :key => @secret) : message.body
+      body = Base64.decode64 message.body
+      @secret ? Encryptor.decrypt(body, :key => @secret) : body
     end
   end
 end

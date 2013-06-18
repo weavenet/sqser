@@ -48,6 +48,7 @@ Queue the job in SQS.
 You can pass the following options to queue_job.
 
 * delay_seconds - The number of seconds to delay the message.
+* secret - Secret to encrypt message.
 
 For example
 
@@ -62,9 +63,10 @@ To process jobs, create a new Sqser::Queue instance and call process.
 
 You can pass the following options to process.
 
-* limit  The maximum number of messages to receive.
-* wait_time_seconds The number of seconds the service should wait for a response when requesting a new message.
-* visibility_timeout The duration (in seconds) that the received messages are hidden from subsequent retrieve requests.
+* limit - The maximum number of messages to receive.
+* secret - Secret to decrypt messages processed from queue.
+* visibility_timeout - The duration (in seconds) that the received messages are hidden from subsequent retrieve requests.
+* wait_time_seconds - The number of seconds the service should wait for a response when requesting a new message.
 
 For example
 
@@ -74,9 +76,15 @@ For example
 
 Messages can be encrypted before being placed in SQS.
 
-If the **:secret** option is specified, the message  will be symetrically encrypted with the given secret before the job is queued.
+If the **:secret** option is specified, the message will be symetrically encrypted with the given secret before the job is queued.
+
+For example:
+
+    job.queue_job :secret => 'this-is-a-secret'
 
 Messages can then be retrieved from the queue and decrypted by specifying **:secret** option to process.
+
+    queue.process :secret => 'this-is-a-secret'
 
 Currently only a single message can be used per SQS Queue.
 

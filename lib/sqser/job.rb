@@ -14,7 +14,7 @@ module Sqser
     def queue_job(options={})
       secret = options.delete(:secret)
       message = secret ? Encryptor.encrypt(self.to_message, :key => secret) : self.to_message
-      self.class.queue.send_message message, options
+      self.class.queue.send_message Base64.encode64(message), options
     end
 
     def run_job

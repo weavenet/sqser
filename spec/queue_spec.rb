@@ -13,7 +13,7 @@ describe Sqser::Queue do
   describe "#run_job" do
     describe "un-encrypted" do
       before do
-        @message_mock.stub :body => 'body'
+        @message_mock.stub :body => Base64.encode64('body')
         Sqser::Job.should_receive(:from_message).with('body').and_return @job_mock
       end
 
@@ -34,7 +34,7 @@ describe Sqser::Queue do
     describe "encrypted" do
       before do
         @secret = 'test1234'
-        @message_mock.stub :body => Encryptor.encrypt('body', :key => @secret)
+        @message_mock.stub :body => Base64.encode64(Encryptor.encrypt('body', :key => @secret))
       end
 
       it "should decrypt job if secret provided" do

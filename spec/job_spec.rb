@@ -16,20 +16,20 @@ describe Sqser::Job do
 
   describe "#queue_job" do
     it "should queue a job" do
-      @queue_mock.should_receive(:send_message).with @test_job.to_message, {}
+      @queue_mock.should_receive(:send_message).with Base64.encode64(@test_job.to_message), {}
       @test_job.queue_job
     end
 
     it "should queue a job and set delay_secondst" do
       @queue_mock.should_receive(:send_message).
-                  with @test_job.to_message, :delay_seconds => 180
+                  with Base64.encode64(@test_job.to_message), :delay_seconds => 180
       @test_job.queue_job :delay_seconds => 180
     end
 
     it "should encrypt job if secret provided" do
       secret = 'test1234'
       encrypted_message = Encryptor.encrypt(@test_job.to_message, :key => secret)
-      @queue_mock.should_receive(:send_message).with encrypted_message, {}
+      @queue_mock.should_receive(:send_message).with Base64.encode64(encrypted_message), {}
       @test_job.queue_job :secret => secret
     end
   end
