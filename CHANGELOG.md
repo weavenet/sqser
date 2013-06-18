@@ -1,3 +1,9 @@
+## 0.3.0:
+
+* Added basic encryption support.
+* Cleaned up specs.
+* Updated README.
+
 ## 0.2.0:
 
 * Added options to queue_job.

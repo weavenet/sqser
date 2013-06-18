@@ -8,13 +8,26 @@ Set your AWS Secret, Access Keys and SQS Queue URL:
     export AWS_SECRET_ACCESS_KEY='...'
     export SQS_QUEUE_URL='...'
 
-## Queue Example Job
+## Clear Text
 
-    ./queue_example_job.rb
+### Queue Example Job
+
+    ./clear_text/queue_example_job.rb
     Job queued succesfully.
 
-## Process Example Jobs
+### Process Example Jobs
 
-    ./process_example_job.rb
-    D, [2013-06-08T07:38:43.041768 #6197] DEBUG -- : Retrieved job lksdjflsdkj from queue.
+    ./clear_text/process_example_job.rb
+    My value: testing 123.
+
+## Encrypted
+
+### Queue Example Job
+
+    ./encrypted/queue_example_job.rb
+    Job queued succesfully.
+
+### Process Example Jobs
+
+    ./encrypted/process_example_job.rb
     My value: testing 123.
