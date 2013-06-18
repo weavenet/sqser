@@ -20,6 +20,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rake"
   gem.add_development_dependency "rspec"
 
-  gem.add_runtime_dependency "aws-sdk"
-  gem.add_runtime_dependency "encryptor"
+  gem.add_runtime_dependency "aws-sdk", "1.11.3"
+  gem.add_runtime_dependency "encryptor", "1.1.3"
 end
