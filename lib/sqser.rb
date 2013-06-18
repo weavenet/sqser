@@ -1,4 +1,5 @@
 require "aws-sdk"
+require "encryptor"
 
 require "sqser/version"
 require "sqser/job"

@@ -14,37 +14,54 @@ describe Sqser::Job do
     @test_job.value = @value
   end
 
-  it "should queue a job" do
-    @queue_mock.should_receive(:send_message).with @test_job.to_message, {}
-    @test_job.queue_job
+  describe "#queue_job" do
+    it "should queue a job" do
+      @queue_mock.should_receive(:send_message).with @test_job.to_message, {}
+      @test_job.queue_job
+    end
+
+    it "should queue a job and set delay_secondst" do
+      @queue_mock.should_receive(:send_message).
+                  with @test_job.to_message, :delay_seconds => 180
+      @test_job.queue_job :delay_seconds => 180
+    end
+
+    it "should encrypt job if secret provided" do
+      secret = 'test1234'
+      encrypted_message = Encryptor.encrypt(@test_job.to_message, :key => secret)
+      @queue_mock.should_receive(:send_message).with encrypted_message, {}
+      @test_job.queue_job :secret => secret
+    end
   end
 
-  it "should queue a job and set delay_secondst" do
-    @queue_mock.should_receive(:send_message).
-                with @test_job.to_message, :delay_seconds => 180
-    @test_job.queue_job :delay_seconds => 180
+  describe "#run" do
+    it "should call run on the parent class of a job pulled from the queue" do
+      @test_job.should_receive(:run)
+      @test_job.run_job
+    end
   end
 
-  it "should call run on the parent class of a job pulled from the queue" do
-    @test_job.should_receive(:run)
-    @test_job.run_job
+  describe "#to_message" do
+    it "should create a message based off the given class" do
+      message = YAML.dump({ :job_class => TestJob.to_s,
+                            :job_args  => [{ :@value => 'test_value'}] })
+      @test_job.to_message.should == message
+    end
   end
 
-  it "should create a message based off the given class" do
-    message = YAML.dump({ :job_class => TestJob.to_s,
-                          :job_args  => [{ :@value => 'test_value'}] })
-    @test_job.to_message.should == message
+  describe "#from_message" do
+    it "should load the given class and args from a message" do
+      message = @test_job.to_message
+      message_from_job = TestJob.from_message(message)
+      message_from_job.run_job.should == "testing 123 #{@value}"
+    end
   end
 
-  it "should load the given class and args from a message" do
-    message = @test_job.to_message
-    message_from_job = TestJob.from_message(message)
-    message_from_job.run_job.should == "testing 123 #{@value}"
-  end
-
-  it "should not raise an error when instance variables exist which are not exposed via attr_accessor" do
-    @test_job.load_args [{ :@private_val => 'test123' }]
-    @test_job.instance_variables.include?(:@private_val).should be_true
+  describe "#load_args" do
+    it "should not raise an error when instance variables exist which are not exposed via attr_accessor" do
+      @test_job.load_args [{ :@private_val => 'test123' }]
+      @test_job.instance_variables.include?(:@private_val).should be_true
+    end
   end
 
 end

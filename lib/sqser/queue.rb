@@ -9,10 +9,18 @@ module Sqser
     end
 
     def process(args={})
+      @secret = args.delete :secret
+
       Sqser::Job.queue.receive_message(args) do |message|
-        job = Sqser::Job.from_message message.body
+        job = Sqser::Job.from_message message_body(message)
         job.run_job
       end
+    end
+
+    private
+
+    def message_body(message)
+      @secret ? Encryptor.decrypt(message.body, :key => @secret) : message.body
     end
   end
 end

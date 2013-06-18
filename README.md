@@ -70,6 +70,18 @@ For example
 
     queue.process :visibility_timeout => 180
 
+## Encryption
+
+Messages can be encrypted before being placed in SQS.
+
+If the **:secret** option is specified, the message  will be symetrically encrypted with the given secret before the job is queued.
+
+Messages can then be retrieved from the queue and decrypted by specifying **:secret** option to process.
+
+Currently only a single message can be used per SQS Queue.
+
+See [examples](https://github.com/brettweavnet/sqser/tree/master/examples) for encryption example.
+
 ## Examples
 
 Checkout the [examples](https://github.com/brettweavnet/sqser/tree/master/examples) for working code.
