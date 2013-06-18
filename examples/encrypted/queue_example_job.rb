@@ -7,6 +7,6 @@ Sqser::Queue.queue_url = ENV['SQS_QUEUE_URL']
 
 job = ExampleJob.new
 job.value = 'testing 123'
-job.queue_job :secret => 'this-is-a-secret'
+job.queue_job :secret => 'this-is-a-secret', :delay_seconds => 1
 
 puts "Job queued succesfully."

@@ -88,7 +88,7 @@ Messages can then be retrieved from the queue and decrypted by specifying **:sec
 
 Currently only a single message can be used per SQS Queue.
 
-See [examples](https://github.com/brettweavnet/sqser/tree/master/examples) for encryption example.
+See [examples](https://github.com/brettweavnet/sqser/tree/master/examples) for encryption examples.
 
 ## Examples
 
