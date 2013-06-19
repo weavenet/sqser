@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/brettweavnet/sqser.png)](http://travis-ci.org/brettweavnet/sqser)
+
 # SQSer
 
 SQSer is a library to perform simple job queuing and execution via an Amazon SQS Queue.
