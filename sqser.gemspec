@@ -6,8 +6,8 @@ require 'sqser/version'
 Gem::Specification.new do |gem|
   gem.name          = "sqser"
   gem.version       = Sqser::VERSION
-  gem.authors       = ["Brett Weaver"]
-  gem.email         = ["brett@weav.net"]
+  gem.authors       = ["brettweavnet"]
+  gem.email         = ["open-source-845@weav.net"]
   gem.description   = %q{Library to queue and execute jobs via AWS SQS}
   gem.summary       = %q{Library to queue and execute jobs via AWS SQS}
   gem.homepage      = "https://github.com/brettweavnet/sqser"
